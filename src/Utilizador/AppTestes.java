@@ -22,7 +22,11 @@ public class AppTestes {
         /*Utilizador ut=new Utilizador();
         ut.setNome("Albano");
         ut.setNickname("Tjyakala");
-        System.out.println(ut.toString());*/
+        ut.setPalavrachave("12");*/
+        /*System.out.println(ut.toString());*/
+        
+        /*Data data=new Data(1,1,2015);
+        System.out.println(data);*/
         
         
                 

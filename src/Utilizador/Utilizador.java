@@ -19,7 +19,7 @@ public class Utilizador {
     private String nome;
     private String nickname;
     private String palavrachave;
-    private Date DataNascimento;
+    private Data DataNascimento;
     private Genero genero;
     private double altura;
     private double peso;
@@ -46,7 +46,7 @@ public class Utilizador {
      * @param DataNascimento
      * @param genero 
      */
-    public Utilizador(String nome, String nickname, String palavrachave, Date DataNascimento, Genero genero,double altura,double peso) {
+    public Utilizador(String nome, String nickname, String palavrachave, Data DataNascimento, Genero genero,double altura,double peso) {
         this.nome = validarString(nome);
         this.nickname = validarString(nome);
         this.palavrachave = validarPalavraPasse(palavrachave);
@@ -105,14 +105,14 @@ public class Utilizador {
      * Retorna a data de nascimento do utilizador. 
      * @return 
      */
-    public Date getDataNascimento() {
+    public Data getDataNascimento() {
         return DataNascimento;
     }
     /**
      * Define a data de nascimento.
      * @param DataNascimento 
      */
-    public void setDataNascimento(Date DataNascimento) {
+    public void setDataNascimento(Data DataNascimento) {
         this.DataNascimento = DataNascimento;
     }
     /**
@@ -211,14 +211,13 @@ public class Utilizador {
     /**
      * Faz validação de Strings.
      */
-    public String  validarString(String novaString){
+    public String  validarString(String novaString) throws UtilizadorException{
         String retornar="";
-        if(!(novaString.equals("")) && !(novaString==null)){
+        if(!(novaString.equals("")) || !(novaString==null)){
            retornar=novaString;
-           return retornar;
-        }
-             
-        return retornar;
+           throw new UtilizadorException("A palavra passe deve ter no minimo 6 caracteres");
+          }
+             return retornar;
       }
      
      /**
