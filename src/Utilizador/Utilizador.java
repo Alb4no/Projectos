@@ -6,7 +6,7 @@
 package Utilizador;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 import Dispositivo.Dispositivo;
 
 /**
@@ -18,8 +18,8 @@ public class Utilizador {
     
     private String nome;
     private String nickname;
-    private String palavrachave;
-    private Data DataNascimento;
+    private String palavraPasse;
+    private LocalDate DataNascimento;
     private Genero genero;
     private double altura;
     private double peso;
@@ -42,14 +42,14 @@ public class Utilizador {
      * Cria uma instância da classe Utilizador com parametros.
      * @param nome
      * @param nickname
-     * @param palavrachave
+     * @param palavraPasse
      * @param DataNascimento
      * @param genero 
      */
-    public Utilizador(String nome, String nickname, String palavrachave, Data DataNascimento, Genero genero,double altura,double peso) {
+    public Utilizador(String nome, String nickname, String palavraPasse, LocalDate DataNascimento,Genero genero,double altura,double peso) {
         this.nome = validarString(nome);
         this.nickname = validarString(nome);
-        this.palavrachave = validarPalavraPasse(palavrachave);
+        this.palavraPasse = validarPalavraPasse(palavraPasse);
         this.DataNascimento = DataNascimento;
         this.genero = validarGenero(genero);
         this.altura = validarAltura(altura);
@@ -91,28 +91,28 @@ public class Utilizador {
      *Retorna a palavra chave do utilizador. 
      * @return 
      */
-    public String getPalavrachave() {
-        return palavrachave;
+    public String getPalavraPasse() {
+        return palavraPasse;
     }
     /**
      * Define a palavra passe. 
      * @param palavrachave 
      */
-    public void setPalavrachave(String palavrachave) {
+    public void setPalavraPasse(String palavrachave) {
         validarPalavraPasse(palavrachave);
     }
     /**
      * Retorna a data de nascimento do utilizador. 
      * @return 
      */
-    public Data getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return DataNascimento;
     }
     /**
      * Define a data de nascimento.
      * @param DataNascimento 
      */
-    public void setDataNascimento(Data DataNascimento) {
+    public void setDataNascimento(LocalDate DataNascimento) {
         this.DataNascimento = DataNascimento;
     }
     /**
@@ -131,8 +131,10 @@ public class Utilizador {
            this.genero=Genero.HOMEM;
         }else if(numero==2){
              this.genero=Genero.MULHER;
+        }else{
+              this.genero=Genero.ND;
         }
-    }
+    } 
 
     public double getAltura() {
         return altura;
@@ -213,9 +215,9 @@ public class Utilizador {
      */
     public String  validarString(String novaString) throws UtilizadorException{
         String retornar="";
-        if(!(novaString.equals("")) || !(novaString==null)){
+        if(novaString.equals("")){
            retornar=novaString;
-           throw new UtilizadorException("A palavra passe deve ter no minimo 6 caracteres");
+           throw new UtilizadorException("Nao deve ser nula");
           }
              return retornar;
       }
@@ -225,13 +227,13 @@ public class Utilizador {
       * @param novaString
       * @return 
       */
-     public String  validarPalavraPasse(String palavraPasse){
-          String retornar=null;
-        if(!( palavraPasse.equals("")) && !( palavraPasse==null) && palavrachave.length()==6){
-           retornar= palavraPasse;
+     public String  validarPalavraPasse(String palavraPasse) throws  UtilizadorException {
+          String retornar="";
+        if(palavraPasse.equals("")){
+           retornar=palavraPasse;
+           throw new UtilizadorException("Palavra passe inferior a 6 caracteres ou está vazia \nRetifique a sua palavra passe");
+            }
            return retornar;
-        }
-             return retornar;
      }
      
      public Genero validarGenero(Genero genero){
@@ -251,10 +253,10 @@ public class Utilizador {
      /**
       * Valida altura do utilizador
       */
-     public double validarAltura(double altura){
+      public double validarAltura(double altura){
           double retornar=0.0;
           
-          if(altura>0 || altura<3){
+          if(altura>0 && altura<3){
              retornar=altura;
           }
           

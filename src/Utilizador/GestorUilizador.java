@@ -10,8 +10,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.String.format;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 /**
  * Faz gestao da informacao dos objectos da classe utilizador.
@@ -82,29 +87,39 @@ public class GestorUilizador {
         System.out.println("\tREGISTAR UTILIZADOR\n");
 
         System.out.println("Nome:");
-        utilizador.setNome(sc.nextLine());
+         String nome=sc.nextLine();
       
         System.out.println("Nickname:");
-        utilizador.setNickname(sc.nextLine());
+         String nickname=sc.nextLine();
         
         System.out.println("Palavra chave:");
-        utilizador.setPalavrachave(sc.nextLine());
+        String palavraPasse=sc.nextLine();
        
         System.out.println("Data de Nascimento:");
-        String dataNascimento = sc.nextLine();
-        
+        int dia=sc.nextInt();
+        String mes=sc.nextLine();
+        int ano=sc.nextInt();
+        LocalDate dataNascimento  = LocalDate.of(ano, Month.MARCH,dia);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy");
+        String out = formatter.format(dataNascimento);
+       
+        Genero genero=null;
         System.out.println("Género – Homem (1) ou Mulher (2):");
-        utilizador.setGenero(sc.nextInt());
+        genero.escolherGenero(sc.nextInt());
         
-        /*System.out.println("Foto (opcional):");
+       /* System.out.println("Foto (opcional):");
         utilizador.
         sc.nextLine();*/
         
         System.out.println("Altura (cm):");
-        utilizador.setAltura(sc.nextDouble());
+        double altura=sc.nextDouble();
         
         System.out.println("Peso (kg):");
-        utilizador.setPeso(sc.nextDouble());
+         double peso=sc.nextDouble();
+        
+        this.utilizador=new Utilizador(nome, nickname, palavraPasse, dataNascimento, genero, altura, peso);
+        
+        
        
         
       
@@ -118,20 +133,21 @@ public class GestorUilizador {
             BufferedWriter bufferedWriter=new BufferedWriter(fileWriter);
             PrintWriter printWriter=new PrintWriter(bufferedWriter);
             
-            printWriter.println(utilizador.getNome());
+            printWriter.println(utilizador.getNome()+"Nome:"+utilizador.getNickname());
             printWriter.println(utilizador.getNickname());
-            printWriter.println(utilizador.getPalavrachave());
+            printWriter.println(utilizador.getPalavraPasse());
             printWriter.println(utilizador.getDataNascimento());
             printWriter.println(utilizador.getGenero());
             /*printWriter.println(fotografia);*/
-           /* printWriter.println(altura);*/
-            /*printWriter.println(peso);*/
+            printWriter.println(utilizador.getPeso());
+            printWriter.println(utilizador.getAltura());
+            
             
             printWriter.flush();
             printWriter.close();
         
         }catch(IOException e){
-        
+            System.out.println("Erro: "+e);
         }
         
    }

@@ -23,7 +23,7 @@ public enum Genero {
         Genero genero = null;
 
         if (numero == 1) {
-             genero=HOMEM;
+              genero=HOMEM;
           }
          else if (numero == 2) {
             return genero=MULHER;
@@ -31,6 +31,21 @@ public enum Genero {
 
         return genero;
     }
+    /**
+     * Mostra as informaçoes relactivas ao género.
+     * @return 
+     */
+    @Override
+    public String toString() {
+        if(this==HOMEM){
+            return "Homem";
+        }else if(this==MULHER){
+            return "Mulher";
+        }
+        return "Nao escolhido";
+    }
+    
+    
 
     
 
